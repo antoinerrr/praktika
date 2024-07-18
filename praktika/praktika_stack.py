@@ -3,6 +3,7 @@ from aws_cdk import (
     aws_lambda as lambda_,
     aws_s3_notifications as s3n,
     aws_s3 as s3,
+    Duration,
 )
 from constructs import Construct
 
@@ -22,6 +23,7 @@ class PraktikaStack(Stack):
             "ResizeImageFunction",
             runtime=lambda_.Runtime.PYTHON_3_12,
             handler="resize_function.handler",
+            timeout=Duration.seconds(5),
             code=lambda_.Code.from_asset("lambda_code"),
             environment={"OUTPUT_BUCKET_NAME": output_bucket.bucket_name},
         )
